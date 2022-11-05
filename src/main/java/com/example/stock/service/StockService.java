@@ -17,5 +17,6 @@ public class StockService {
         //save
         final Stock stock = this.stockRepository.findById(id).orElseThrow();
         stock.decrease(quantity);
+        this.stockRepository.saveAndFlush(stock);
     }
 }

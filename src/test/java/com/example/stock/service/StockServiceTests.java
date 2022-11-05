@@ -44,11 +44,13 @@ class StockServiceTests {
         final ExecutorService executorService = Executors.newFixedThreadPool(32);
         final CountDownLatch countDownLatch = new CountDownLatch(threadCount);
         for (int i = 0; i < threadCount; i++) {
-            try {
-                executorService.submit(() -> this.stockService.decrease(1L, 1L));
-            } finally {
-                countDownLatch.countDown();
-            }
+            executorService.submit(() -> {
+                try {
+                    this.stockService.decrease(1L, 1L);
+                } finally {
+                    countDownLatch.countDown();
+                }
+            });
         }
         countDownLatch.await();
 
