@@ -13,10 +13,10 @@ import java.util.concurrent.Executors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-class OptimisticLockStockFacadeTests {
+class NamedLockStockFacadeTests {
 
     @Autowired
-    private OptimisticLockStockFacade optimisticLockStockFacade;
+    private NamedLockStockFacade namedLockStockFacade;
     @Autowired
     private StockRepository stockRepository;
 
@@ -40,9 +40,7 @@ class OptimisticLockStockFacadeTests {
         for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
                 try {
-                    this.optimisticLockStockFacade.decrease(1L, 1L);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    this.namedLockStockFacade.decrease(1L, 1L);
                 } finally {
                     countDownLatch.countDown();
                 }
@@ -53,4 +51,5 @@ class OptimisticLockStockFacadeTests {
         final Stock stock = stockRepository.findById(1L).orElseThrow();
         assertEquals(0, stock.getQuantity());
     }
+
 }

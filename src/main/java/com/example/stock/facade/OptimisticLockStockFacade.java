@@ -2,9 +2,10 @@ package com.example.stock.facade;
 
 import com.example.stock.service.OptimisticLockStockService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class OptimisticLockStockFacade {
     private final OptimisticLockStockService optimisticLockStockService;
