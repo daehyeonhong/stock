@@ -11,13 +11,13 @@ public class LettuceLockStockFacade {
     private final RedisRepository redisRepository;
     private final StockService stockService;
 
-    public void decrease(final Long id,final Long quantity) throws InterruptedException {
+    public void decrease(final Long id, final Long quantity) throws InterruptedException {
         while (Boolean.FALSE.equals(this.redisRepository.lock(id))) {
             Thread.sleep(100);
         }
         try {
-            this.stockService.decrease(id,quantity);
-        }finally {
+            this.stockService.decrease(id, quantity);
+        } finally {
             this.redisRepository.unlock(id);
         }
     }

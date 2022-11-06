@@ -10,6 +10,10 @@ import java.time.Duration;
 public class RedisRepository {
     private final RedisTemplate<String, String> redisTemplate;
 
+    private static String generateKey(final Long key) {
+        return String.valueOf(key);
+    }
+
     public Boolean lock(final Long key) {
         return this.redisTemplate
                 .opsForValue()
@@ -18,9 +22,5 @@ public class RedisRepository {
 
     public Boolean unlock(final Long key) {
         return this.redisTemplate.delete(generateKey(key));
-    }
-
-    private static String generateKey(final Long key) {
-        return String.valueOf(key);
     }
 }
