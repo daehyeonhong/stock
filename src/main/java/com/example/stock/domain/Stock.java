@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Version;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,6 +18,8 @@ public class Stock {
     Long id;
     Long productId;
     Long quantity;
+    @Version
+    Long version;
 
     public Stock(final Long productId, final Long quantity) {
         this.productId = productId;
